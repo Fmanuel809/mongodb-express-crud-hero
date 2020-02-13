@@ -14,7 +14,7 @@ var termination = chalk.bold.magenta;
 
 // export function and imported by index.js
 module.exports = function() {
-    mongoose.connect(dbURL);
+    mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
     mongoose.connection.on('connected', function() {
         console.log(connected(`Mongoose default connection is open to ${dbURL}.`));
@@ -30,7 +30,7 @@ module.exports = function() {
 
     process.on('SIGINT', function() {
         mongoose.connection.close(function() {
-            console.log(termination(`ongoose default connection is disconnected due to application termination.`));
+            console.log(termination(`Mongoose default connection is disconnected due to application termination.`));
             process.exit(0);
         });
     });
